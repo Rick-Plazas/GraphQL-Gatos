@@ -92,9 +92,13 @@ const server = new ApolloServer({
   resolvers,
 });
 
+// Render asigna el puerto automáticamente
+const PORT = process.env.PORT || 4000;
+
+
 sequelize.sync().then(() => {
   console.log('Base de datos sincronizada correctamente');
-  server.listen().then(({ url }) => {
+  server.listen({ port: PORT }).then(({ url }) => {
     console.log(`Servidor GraphQL corriendo en: ${url}`);
   });
-}).catch(err => console.error('Error al sincronizar con la base de datos:', err));
+}).catch(err => console.error('Error al sincronizar con la base de datos:', err))
