@@ -1,10 +1,15 @@
 // database/db.js
+const { Sequelize } = require('sequelize');
 
-const { Sequelize } = require('sequelize'); //ORM
-
-const sequelize = new Sequelize('studentsdb', 'postgres', 'fuerzaaerea2',{
-    host: 'localhost',
-    dialect: 'postgres',
+const sequelize = new Sequelize(process.env.DATABASE_URL, {
+  dialect: 'postgres',
+  protocol: 'postgres',
+  dialectOptions: {
+    ssl: {
+      require: true, // Render requiere SSL
+      rejectUnauthorized: false,
+    },
+  },
 });
 
-module.exports = sequelize; 
+module.exports = sequelize;
